@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(MetaCyto)\nlibrary(dplyr)\n\n###############################################\n########## Collect Summary statistics  ########\n###############################################\n# Collect Summary statistics generated in step 3\nfiles=list.files(\"Result/search_output\",pattern=\"cluster_stats_in_each_sample\",recursive=T,full.names=T)\nfcs_stats=collectData(files,longform=T)\n\n\n#######################################################\n########## Collect collect sample information  ########\n#######################################################\n\n# Collect sample information generated in step 1\nfiles=list.files(\"Data\",pattern=\"sample_info\",recursive=T,full.names=T)\nsample_info=collectData(files,longform=F)\n\n# join the cluster summary statistics with sample information\nall_data=inner_join(fcs_stats,sample_info,by=\"fcs_files\")\n\n\n\n####################################################################\n########## Estimation effect size  of age for all clusters  ########\n####################################################################\n\n# See the fraction of what clusters are affected by age (while controlling for GENDER)\nGA=glmAnalysis(value=\"value\",variableOfInterst=\"SUBJECT_AGE\",parameter=\"fraction\",\n               otherVariables=c(\"GENDER\"),studyID=\"study_id\",label=\"label\",\n               data=all_data,CILevel=0.95,ifScale=c(T,F))\nGA=GA[order(GA$Effect_size),]\n\n# plot the results\nplotGA(GA)\n\n\n##############################################################\n########## Analyze on cluster  in detail  ####################\n##############################################################\n# Let's take a closer look to see if CCR7+ CD8 T cell is affected by age (while controlling for GENDER)\nL=\"CD3+|CD4-|CD8+|CCR7+\"\ndat=subset(all_data,all_data$parameter_name==\"fraction\"&\n             all_data$label==L)\nMA=metaAnalysis(value=\"value\",variableOfInterst=\"SUBJECT_AGE\",main=L,\n                  otherVariables=c(\"GENDER\"),studyID=\"study_id\",\n                  data=dat,CILevel=0.95,ifScale=c(T,F))\n\n",
+    "created" : 1492705474672.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3564198533",
+    "id" : "70E7903D",
+    "lastKnownWriteTime" : 1492705479,
+    "last_content_update" : 1492705479635,
+    "path" : "~/Box Sync/MetaCyto_related/MetaCyto/MetaCyto_Example_Meta_Local/Code/step4_meta_analysis.R",
+    "project_path" : "Code/step4_meta_analysis.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
