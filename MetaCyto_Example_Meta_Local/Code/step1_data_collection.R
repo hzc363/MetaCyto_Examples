@@ -8,7 +8,7 @@ library(MetaCyto)
 ########## Check working directory first ##########
 ###################################################
 wd=getwd()
-if(grepl("MetaCyto_Example_Meta_Local$",wd)==F){print("Please change the working directory to 'MetaCyto_Example'")}
+if(grepl("MetaCyto_Example_Meta_Local$",wd)==F){print("Please change the working directory to 'MetaCyto_Example_Meta_Local'")}
 
 
 #############################################

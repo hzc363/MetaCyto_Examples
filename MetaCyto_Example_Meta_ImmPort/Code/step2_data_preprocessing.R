@@ -39,7 +39,7 @@ PS=panelSummary(panel_info,"Result",cluster=F,width=30,height=20)
 
 
 ###################################
-########## Updata Names ##########
+########## Update Names ##########
 ##################################
 
 # CD8 is called "CD8B" in one study and is called "CD8" in another. 
